@@ -54,10 +54,23 @@ const sameWinsMatches = ({
   
 };
 
+const calculateRoundsForSwiss = ({
+  players,
+}:{
+  players : Player[]
+}) : number => {
+  if (Number.isInteger(Math.log2(players.length))) {
+    return Math.log2(players.length)
+  } 
+  return -1 //Lo dejo para que no joda el error de ts, pero hay que asignar el segundo casa para cuando players.lenght no es potencia de 2
+}
+
 export const gameUtils = {
   getRandomInt,
   get5DigitSeed,
   arePlayersDuplicatedInMatches,
   filterByPlayedMatch,
   sameWinsMatches,
+  calculateRoundsForSwiss,
+
 };

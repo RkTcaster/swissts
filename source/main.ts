@@ -24,36 +24,78 @@ let ronda1 = tournament.rounds[0].matches
 // tournament.filterByPlayedMatch()
 // console.log(tournament.unplayedMatches);
 
-console.log(ronda1)
-console.log(tournament.rounds)
-
-debugger
 ronda1.map((setplayerwins) => {
   setplayerwins.player1.player.addWin();
   setplayerwins.setPlayed();
 });
 
-
 //console.log(tournament.rounds.forEach((round) => console.log(round.matches)))
 
 tournament.createRound()
 
-console.log(tournament.rounds)
-debugger
+
+
 let ronda2 = tournament.rounds[1].matches
-console.log(ronda2)
 
 ronda2.map((setplayerwins) => {
   setplayerwins.player1.player.addWin();
   setplayerwins.setPlayed();
 });
 
-console.log(tournament.unplayedMatches)
+tournament.createRound()
+
+let ronda3 = tournament.rounds[2].matches
+
+ronda3.map((setplayerwins) => {
+  setplayerwins.player1.player.addWin();
+  setplayerwins.setPlayed();
+});
 
 tournament.createRound()
 
+let ronda4 = tournament.rounds[3].matches
 
-console.log(tournament.rounds);
+ronda4.map((setplayerwins) => {
+  setplayerwins.player1.player.addWin();
+  setplayerwins.setPlayed();
+});
+
+tournament.createRound()
+
+let ronda5 = tournament.rounds[tournament.rounds.length-1].matches
+
+ronda5.map((setplayerwins) => {
+  setplayerwins.player1.player.addWin();
+  setplayerwins.setPlayed();
+});
+
+tournament.createRound()
+
+let ronda6 = tournament.rounds[tournament.rounds.length-1].matches
+
+ronda6.map((setplayerwins) => {
+  setplayerwins.player1.player.addWin();
+  setplayerwins.setPlayed();
+});
+
+tournament.createRound()
+
+let ronda7 = tournament.rounds[tournament.rounds.length-1].matches
+
+ronda7.map((setplayerwins) => {
+  setplayerwins.player1.player.addWin();
+  setplayerwins.setPlayed();
+});
+
+tournament.createRound()
+
+console.log(tournament.unplayedMatches);
+
+console.log(tournament.rounds)
+
+
+
+
 
 
 
