@@ -77,4 +77,21 @@ export class Round {
       }, new Set<Player>());
     }
   }
+
+  public getMatchesAfterSwiss() {
+    let playersWithoutMatch = new Set(this.players);  
+    let arrayLength = gameUtils.createNumberArray({unplayerMatchLength : this.unplayedMatches.length})
+    //console.log(arrayLength[gameUtils.getRandomInt(this.seed)]); Tengo que trabajar esto con un while y un if que condiciones la respuesta del while, lo que puede ser peligroso.
+    
+    // while (playersWithoutMatch.size >= 1) {
+    //   this.getRandomMatch();
+    //   this.setUnplayedMatchesByPlayedMatches();
+
+    //   playersWithoutMatch = this.unplayedMatches.reduce((acc, curr) => {
+    //     acc.add(curr.player1.player);
+    //     acc.add(curr.player2.player);
+    //     return acc;
+    //   }, new Set<Player>());
+    // }
+  }
 }

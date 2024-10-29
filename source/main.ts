@@ -48,16 +48,17 @@ ronda3.map((setplayerwins) => {
   setplayerwins.setPlayed();
 });
 
-//console.log(tournament.unplayedMatches);
+tournament.createRound()
 
-// tournament.createRound()
+let ronda4 = tournament.rounds[3].matches
 
-// let ronda4 = tournament.rounds[3].matches
+ronda4.map((setplayerwins) => {
+  setplayerwins.player1.player.addWin();
+  setplayerwins.setPlayed();
+});
 
-// ronda4.map((setplayerwins) => {
-//   setplayerwins.player1.player.addWin();
-//   setplayerwins.setPlayed();
-// });
+console.log(tournament.unplayedMatches);
+console.log(tournament.rounds);
 
 // tournament.createRound()
 

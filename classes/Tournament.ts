@@ -66,7 +66,7 @@ export class Tournament {
       players: this.players,
     });
     this.rounds.push(newRound);
-    this.rounds[this.rounds.length-1].getRandomMatches()
+    this.rounds[this.rounds.length - 1].getRandomMatches();
   }
 
   public getNextRoundSameWins() {
@@ -77,7 +77,18 @@ export class Tournament {
       players: this.players,
     });
     this.rounds.push(newRound);
-    this.rounds[this.rounds.length-1].getPairedMatches()
+    this.rounds[this.rounds.length - 1].getPairedMatches();
+  }
+
+  public getRoundAfterSwiss() {
+    if (!this.seed) throw new Error("Seed not found");
+    const newRound = new Round({
+      unplayedMatches: this.unplayedMatches,
+      seed: this.seed,
+      players: this.players,
+    });
+    this.rounds.push(newRound)
+    this.rounds[this.rounds.length-1].getMatchesAfterSwiss()
   }
 
   public filterByPlayedMatch() {
@@ -90,30 +101,21 @@ export class Tournament {
 
   public createRound() {
     this.filterByPlayedMatch();
-    
-    
+
     if (this.rounds.length === 0) {
       this.getRandomRound();
     } else if (
-      gameUtils.calculateRoundsForSwiss({ players: this.players })  === -1 ||
-      gameUtils.calculateRoundsForSwiss({ players: this.players }) <= this.rounds.length
+      gameUtils.calculateRoundsForSwiss({ players: this.players }) === -1 ||
+      gameUtils.calculateRoundsForSwiss({ players: this.players }) <=
+        this.rounds.length
     ) {
-      this.getRandomRound();
+      console.log("entro en -1");      
+      this.getRoundAfterSwiss();
     } else if (
       gameUtils.calculateRoundsForSwiss({ players: this.players }) >
       this.rounds.length
     ) {
       this.getNextRoundSameWins();
     }
-  }
-
-  public createTestRound() {
-    if (!this.seed) throw new Error("Seed not found");
-    const testRound = new Round({
-      unplayedMatches: this.unplayedMatches,
-      seed: this.seed,
-      players: this.players,
-    });
-    return testRound;
   }
 }
