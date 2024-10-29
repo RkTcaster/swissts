@@ -45,25 +45,24 @@ const sameWinsMatches = ({
   unplayedMatches: Match[];
 }): Match[] => {
   //tipado porque se puede devovler algo vacio
-  
+
   return unplayedMatches.filter((unplayedMatch) => {
-    return (unplayedMatch.player1.player.wins === unplayedMatch.player2.player.wins
+    return (
+      unplayedMatch.player1.player.wins === unplayedMatch.player2.player.wins
     );
   });
- 
-  
 };
 
 const calculateRoundsForSwiss = ({
   players,
-}:{
-  players : Player[]
-}) : number => {
+}: {
+  players: Player[];
+}): number => {
   if (Number.isInteger(Math.log2(players.length))) {
-    return Math.log2(players.length)
-  } 
-  return -1 //Lo dejo para que no joda el error de ts, pero hay que asignar el segundo casa para cuando players.lenght no es potencia de 2
-}
+    return Math.log2(players.length);
+  }
+  return -1; //Lo dejo para que no joda el error de ts, pero hay que asignar el segundo casa para cuando players.lenght no es potencia de 2
+};
 
 export const gameUtils = {
   getRandomInt,
@@ -72,5 +71,4 @@ export const gameUtils = {
   filterByPlayedMatch,
   sameWinsMatches,
   calculateRoundsForSwiss,
-
 };

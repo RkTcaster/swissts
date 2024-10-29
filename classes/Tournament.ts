@@ -66,10 +66,7 @@ export class Tournament {
       players: this.players,
     });
     this.rounds.push(newRound);
-    this.rounds.map((round) => {
-      round.getRandomMatches();
-      return round.matches;
-    });
+    this.rounds[this.rounds.length-1].getRandomMatches()
   }
 
   public getNextRoundSameWins() {
@@ -80,11 +77,7 @@ export class Tournament {
       players: this.players,
     });
     this.rounds.push(newRound);
-
-    this.rounds.map((round) => {
-      round.getPairedMatches();
-      return round.matches;
-    });
+    this.rounds[this.rounds.length-1].getPairedMatches()
   }
 
   public filterByPlayedMatch() {
@@ -97,24 +90,19 @@ export class Tournament {
 
   public createRound() {
     this.filterByPlayedMatch();
-
+    
+    
     if (this.rounds.length === 0) {
-      console.log("entro random");
-
       this.getRandomRound();
     } else if (
       gameUtils.calculateRoundsForSwiss({ players: this.players })  === -1 ||
       gameUtils.calculateRoundsForSwiss({ players: this.players }) <= this.rounds.length
     ) {
-      console.log("entro else if -1");
-
       this.getRandomRound();
     } else if (
       gameUtils.calculateRoundsForSwiss({ players: this.players }) >
       this.rounds.length
     ) {
-      console.log("entro else if getnextroundsamewins");
-
       this.getNextRoundSameWins();
     }
   }

@@ -15,7 +15,6 @@ tournament.setSeed({ date: tournamentDate }); //Meter date en tournament? Esto p
 tournament.createRound()
 
 let ronda1 = tournament.rounds[0].matches
-
 //Segunda ronda fijo wins para algunos equipos y realimentar players con eso para una segunda ronda:
 
 // console.log(tournament.unplayedMatches)
@@ -33,8 +32,6 @@ ronda1.map((setplayerwins) => {
 
 tournament.createRound()
 
-
-
 let ronda2 = tournament.rounds[1].matches
 
 ronda2.map((setplayerwins) => {
@@ -51,47 +48,49 @@ ronda3.map((setplayerwins) => {
   setplayerwins.setPlayed();
 });
 
-tournament.createRound()
+//console.log(tournament.unplayedMatches);
 
-let ronda4 = tournament.rounds[3].matches
+// tournament.createRound()
 
-ronda4.map((setplayerwins) => {
-  setplayerwins.player1.player.addWin();
-  setplayerwins.setPlayed();
-});
+// let ronda4 = tournament.rounds[3].matches
 
-tournament.createRound()
+// ronda4.map((setplayerwins) => {
+//   setplayerwins.player1.player.addWin();
+//   setplayerwins.setPlayed();
+// });
 
-let ronda5 = tournament.rounds[tournament.rounds.length-1].matches
+// tournament.createRound()
 
-ronda5.map((setplayerwins) => {
-  setplayerwins.player1.player.addWin();
-  setplayerwins.setPlayed();
-});
+// let ronda5 = tournament.rounds[tournament.rounds.length-1].matches
 
-tournament.createRound()
+// ronda5.map((setplayerwins) => {
+//   setplayerwins.player1.player.addWin();
+//   setplayerwins.setPlayed();
+// });
 
-let ronda6 = tournament.rounds[tournament.rounds.length-1].matches
+// tournament.createRound()
 
-ronda6.map((setplayerwins) => {
-  setplayerwins.player1.player.addWin();
-  setplayerwins.setPlayed();
-});
+// let ronda6 = tournament.rounds[tournament.rounds.length-1].matches
 
-tournament.createRound()
+// ronda6.map((setplayerwins) => {
+//   setplayerwins.player1.player.addWin();
+//   setplayerwins.setPlayed();
+// });
 
-let ronda7 = tournament.rounds[tournament.rounds.length-1].matches
+// tournament.createRound()
 
-ronda7.map((setplayerwins) => {
-  setplayerwins.player1.player.addWin();
-  setplayerwins.setPlayed();
-});
+// let ronda7 = tournament.rounds[tournament.rounds.length-1].matches
 
-tournament.createRound()
+// ronda7.map((setplayerwins) => {
+//   setplayerwins.player1.player.addWin();
+//   setplayerwins.setPlayed();
+// });
 
-console.log(tournament.unplayedMatches);
+// tournament.createRound()
 
-console.log(tournament.rounds)
+// console.log(tournament.unplayedMatches);
+
+// console.log(tournament.rounds)
 
 
 
