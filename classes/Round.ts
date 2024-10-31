@@ -8,6 +8,7 @@ export class Round {
   public roundNumber: number = 0;
   private seed: number;
   private players: Player[];
+  private tempWhile: Match[] = [];
 
   constructor({
     unplayedMatches,
@@ -78,20 +79,56 @@ export class Round {
     }
   }
 
-  public getMatchesAfterSwiss() {
-    let playersWithoutMatch = new Set(this.players);  
-    let arrayLength = gameUtils.createNumberArray({unplayerMatchLength : this.unplayedMatches.length})
-    //console.log(arrayLength[gameUtils.getRandomInt(this.seed)]); Tengo que trabajar esto con un while y un if que condiciones la respuesta del while, lo que puede ser peligroso.
+  private setUnplayedMatchesByPlayedMatchesAfterSwiss() {
+    const filteredMatches = this.unplayedMatches.filter((unplayedMatch) => {
+      return !this.tempWhile.some((match) => {
+        return gameUtils.arePlayersDuplicatedInMatches({
+          match1: unplayedMatch,
+          match2: match,
+        });
+      });
+    });
+    this.unplayedMatches = filteredMatches;
+    console.log(filteredMatches);
     
-    // while (playersWithoutMatch.size >= 1) {
-    //   this.getRandomMatch();
-    //   this.setUnplayedMatchesByPlayedMatches();
-
-    //   playersWithoutMatch = this.unplayedMatches.reduce((acc, curr) => {
-    //     acc.add(curr.player1.player);
-    //     acc.add(curr.player2.player);
-    //     return acc;
-    //   }, new Set<Player>());
-    // }
   }
+
+  public getMatchesAfterSwiss() {
+    //Esto es testeo, probablemente hay que refactorizar
+    let playersWithoutMatch = new Set(this.players);
+    //    while (this.tempWhile.length !== 4 || arrayNumbersLenght.length !== 0 ) {
+
+    while (playersWithoutMatch.size >= 1) {
+      // let arrayNumbersLenght = gameUtils.createNumberArray({
+      //   unplayerMatchLength: this.unplayedMatches.length,
+      // });
+      // let randomValue = gameUtils.getRandomInt(
+      //   arrayNumbersLenght.length,
+      //   this.seed
+      // );
+      // let tempMatchs = this.unplayedMatches[arrayNumbersLenght[randomValue]];
+      // this.tempWhile.push(tempMatchs); //Esto es mal seguro
+      // this.setUnplayedMatchesByPlayedMatchesAfterSwiss();
+      this.getRandomMatch();
+      this.setUnplayedMatchesByPlayedMatchesAfterSwiss();
+
+      playersWithoutMatch = this.unplayedMatches.reduce((acc, curr) => {
+        acc.add(curr.player1.player);
+        acc.add(curr.player2.player);
+        return acc;
+      }, new Set<Player>());
+    }
+  }
+  //console.log(arrayLength[gameUtils.getRandomInt(this.seed)]); Tengo que trabajar esto con un while y un if que condiciones la respuesta del while, lo que puede ser peligroso.
+
+  // while (playersWithoutMatch.size >= 1) {
+  //   this.getRandomMatch();
+  //   this.setUnplayedMatchesByPlayedMatches();
+
+  //   playersWithoutMatch = this.unplayedMatches.reduce((acc, curr) => {
+  //     acc.add(curr.player1.player);
+  //     acc.add(curr.player2.player);
+  //     return acc;
+  //   }, new Set<Player>());
+  // }
 }
