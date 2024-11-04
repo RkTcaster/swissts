@@ -50,8 +50,12 @@ ronda3.map((setplayerwins) => {
   setplayerwins.setPlayed();
 });
 
+console.log(tournament.unplayedMatches);
+
+
+tournament.createRound()
+
 console.log(tournament.rounds);
-// tournament.createRound()
 
 // let ronda4 = tournament.rounds[3].matches
 

@@ -65,12 +65,12 @@ const calculateRoundsForSwiss = ({
 };
 
 const createNumberArray = ({
-  unplayerMatchLength
+  unplayerMatchLength,
 }: {
-  unplayerMatchLength: number 
-}) : number[] => {
-  return Array.from(Array(unplayerMatchLength).keys())
-}
+  unplayerMatchLength: number;
+}): number[] => {
+  return Array.from(Array(unplayerMatchLength).keys());
+};
 
 export const gameUtils = {
   getRandomInt,
@@ -80,5 +80,4 @@ export const gameUtils = {
   sameWinsMatches,
   calculateRoundsForSwiss,
   createNumberArray,
-  
 };
