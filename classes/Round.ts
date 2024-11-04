@@ -45,14 +45,14 @@ export class Round {
     this.matches.push(randomMatch);
   }
 
-  private getRandomMatchAfterSwiss({ ArrayLength }: { ArrayLength: any }) {
-    let randomInt = gameUtils.getRandomInt(ArrayLength.length, this.seed);
-
-    let randomMatch = this.tempUnplayedMatches[randomInt];
+  private getRandomMatchAfterSwiss() {
+    let ArrayLength = gameUtils.createNumberArray({
+      unplayerMatchLength: this.tempUnplayedMatches.length,
+    });
+    const randomInt = gameUtils.getRandomInt(ArrayLength.length, this.seed);
+    const randomMatch = this.tempUnplayedMatches[randomInt];
     ArrayLength.splice(randomInt, 1);
     this.matches.push(randomMatch);
-    console.log(this.matches);
-    
   }
 
   public getRandomMatches() {
@@ -91,78 +91,52 @@ export class Round {
   }
 
   private setUnplayedMatchesByPlayedMatchesAfterSwiss() {
-
-
-    const filteredMatches = this.tempUnplayedMatches.filter((unplayedMatch) => {
-      return !this.matches.some((match) => {
-        return gameUtils.arePlayersDuplicatedInMatches({
-          match1: unplayedMatch,
-          match2: match,
+    const filteredMatches = this.tempUnplayedMatches.filter(
+      (tempUnplayedMatches) => {
+        return !this.matches.some((match) => {
+          return gameUtils.arePlayersDuplicatedInMatches({
+            match1: tempUnplayedMatches,
+            match2: match,
+          });
         });
-      });
-    });
+      }
+    );
     this.tempUnplayedMatches = filteredMatches;
-
-    //   const filteredMatches = this.unplayedMatches.filter((unplayedMatch) => {
-    //     return !this.tempWhile.some((match) => {
-    //       return gameUtils.arePlayersDuplicatedInMatches({
-    //         match1: unplayedMatch,
-    //         match2: match,
-    //       });
-    //     });
-    //   });
-    //   this.unplayedMatches = filteredMatches;
-    //   console.log(filteredMatches);
   }
-  private resetmatches(): void {
+
+  private resetMatchesAndUnplayedMatches(): void {
     //esto esta bien de reset ?
     this.matches = [];
+    this.tempUnplayedMatches = [...this.unplayedMatches];
   }
 
   public getMatchesAfterSwiss() {
-    console.log("entro getMatcheAferSwiss");
-    
-    let playersWithoutMatch = new Set(this.players);
-    let ArrayLength = gameUtils.createNumberArray({
-      unplayerMatchLength: this.tempUnplayedMatches.length,
-    });
-    
-    console.log(this.matches);
-    debugger
-    //Start Match:
+    let i = 0;
+    while (i < this.unplayedMatches.length && this.matches.length < 4) {
+      let playersWithoutMatch = new Set(this.players);
+      this.matches.push(this.unplayedMatches[i]);
 
-    while (playersWithoutMatch.size >= 1) {
-
-      this.getRandomMatchAfterSwiss({ArrayLength:ArrayLength});
-
-      this.setUnplayedMatchesByPlayedMatchesAfterSwiss();
-      playersWithoutMatch = this.tempUnplayedMatches.reduce((acc, curr) => {
-        acc.add(curr.player1.player);
-        acc.add(curr.player2.player);
-        return acc;
-      }, new Set<Player>());
-
-      // console.log(this.matches);
-      // if (
-      //   this.matches[this.matches.length - 1] === undefined &&
-      //   this.matches.length <= 4
-      // ) {
-      //   // console.log("Entro if");
-        
-      //   this.resetmatches();
-      // }
+      while (playersWithoutMatch.size >= 1) {
+        this.setUnplayedMatchesByPlayedMatchesAfterSwiss();
+        playersWithoutMatch = this.tempUnplayedMatches.reduce((acc, curr) => {
+          acc.add(curr.player1.player);
+          acc.add(curr.player2.player);
+          return acc;
+        }, new Set<Player>());
+        this.getRandomMatchAfterSwiss();
+      }
+      if (
+        this.matches[this.matches.length - 1] === undefined &&
+        this.matches.length === 5
+      ) {
+        this.matches.splice(4, 1);
+      } else if (
+        this.matches[this.matches.length - 1] === undefined &&
+        this.matches.length === 4
+      ) {
+        this.resetMatchesAndUnplayedMatches();
+        i += 1;
+      }
     }
   }
 }
-//console.log(arrayLength[gameUtils.getRandomInt(this.seed)]); Tengo que trabajar esto con un while y un if que condiciones la respuesta del while, lo que puede ser peligroso.
-
-// while (playersWithoutMatch.size >= 1) {
-//   this.getRandomMatch();
-//   this.setUnplayedMatchesByPlayedMatches();
-
-//   playersWithoutMatch = this.unplayedMatches.reduce((acc, curr) => {
-//     acc.add(curr.player1.player);
-//     acc.add(curr.player2.player);
-//     return acc;
-//   }, new Set<Player>());
-// }
