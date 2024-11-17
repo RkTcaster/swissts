@@ -1,4 +1,4 @@
-import { gameUtils } from "../../source/utils/utils";
+import { gameUtils } from "../source/utils/utils";
 import { Match } from "./Match";
 import { Player } from "./Player";
 import { Round } from "./Round";
@@ -8,18 +8,25 @@ export class Tournament {
   public players: Player[] = [];
   public unplayedMatches: Match[] = [];
   private returnRound: Match[] = [];
-  private seed: number | undefined = undefined;
+  private seed: number;
   public rounds: Round[] = [];
 
-  constructor({ playersString }: { playersString: string[] }) {
+  constructor({
+    playersString,
+    date,
+  }: {
+    playersString: string[];
+    date: string;
+  }) {
     this.playersString = playersString;
     this.createPlayers();
     this.setAllMatchMatrix();
+    this.seed = this.setSeed({ date });
   }
 
   private createPlayers() {
     this.players = this.playersString.map(
-      (name) => new Player({ name, wins: 0 })
+      (name) => new Player({ name, wins: 0, setWins: 0, setLoss:0 })
     );
   }
 
@@ -55,43 +62,45 @@ export class Tournament {
   }
 
   public setSeed({ date }: { date: string }) {
-    this.seed = gameUtils.get5DigitSeed({ date });
+    return gameUtils.get5DigitSeed({ date });
   }
 
-  public getRandomRound() {
-    if (!this.seed) throw new Error("Seed not found");
-    const newRound = new Round({
+  private getNewRound() {
+    return new Round({
       unplayedMatches: this.unplayedMatches,
       seed: this.seed,
       players: this.players,
+      roundUnfairness: 0,
     });
+  }
+
+  private roundNumber(){
+    const roundLenght = this.rounds.length
+    this.rounds[roundLenght-1].roundNumber = roundLenght
+  }
+
+  private getFirstRound() {
+    const newRound = this.getNewRound();
+    newRound.getRandomMatches();
     this.rounds.push(newRound);
-    this.rounds[this.rounds.length - 1].getRandomMatches();
+    this.roundNumber()
   }
 
-  public getNextRoundSameWins() {
-    if (!this.seed) throw new Error("Seed not found"); //No se si vale la pena checkear el seed 2 veces
-    const newRound = new Round({
-      unplayedMatches: this.unplayedMatches,
-      seed: this.seed,
-      players: this.players,
-    });
+  private getNextRoundSameWins() {
+    const newRound = this.getNewRound();
+    newRound.getPairedMatches();
     this.rounds.push(newRound);
-    this.rounds[this.rounds.length - 1].getPairedMatches();
+    this.roundNumber()
   }
 
-  public getRoundAfterSwiss() {
-    if (!this.seed) throw new Error("Seed not found");
-    const newRound = new Round({
-      unplayedMatches: this.unplayedMatches,
-      seed: this.seed,
-      players: this.players,
-    });
-    this.rounds.push(newRound)
-    this.rounds[this.rounds.length-1].getMatchesAfterSwiss()
+  private getRoundAfterSwiss() {
+    const newRound = this.getNewRound();
+    newRound.getRound();
+    this.rounds.push(newRound);
+    this.roundNumber()
   }
 
-  public filterByPlayedMatch() {
+  private filterByPlayedMatch() {
     if (this.rounds.length !== 0) {
       this.unplayedMatches = gameUtils.filterByPlayedMatch({
         unplayedMatches: this.unplayedMatches,
@@ -101,20 +110,14 @@ export class Tournament {
 
   public createRound() {
     this.filterByPlayedMatch();
-
+    const roundsForSwiss = gameUtils.calculateRoundsForSwiss({
+      players: this.players,
+    });
     if (this.rounds.length === 0) {
-      this.getRandomRound();
-    } else if (
-      gameUtils.calculateRoundsForSwiss({ players: this.players }) === -1 ||
-      gameUtils.calculateRoundsForSwiss({ players: this.players }) <=
-        this.rounds.length
-    ) {
-      console.log("entro en -1");      
+      this.getFirstRound();
+    } else if (roundsForSwiss === undefined || roundsForSwiss <= this.rounds.length) {
       this.getRoundAfterSwiss();
-    } else if (
-      gameUtils.calculateRoundsForSwiss({ players: this.players }) >
-      this.rounds.length
-    ) {
+    } else if (roundsForSwiss > this.rounds.length) {
       this.getNextRoundSameWins();
     }
   }
