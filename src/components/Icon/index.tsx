@@ -1,8 +1,11 @@
 import Close from '@/assets/icons/close.svg?react'
+import Image from '@/assets/icons/image-icon.svg?react'
 import { twMerge } from 'tailwind-merge'
+import './icon.css'
 
 const iconsMap = {
-  Close
+  Close,
+  Image
 } as const
 
 export type IconsMap = typeof iconsMap
@@ -14,6 +17,7 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
   className?: string
   svgProps?: React.SVGProps<SVGSVGElement>
 }
+
 const Icon = ({ name, onClick, className, svgProps }: IconProps) => {
   const IconToRender = iconsMap[name]
 

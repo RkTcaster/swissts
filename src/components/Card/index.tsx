@@ -10,11 +10,7 @@ type Props = {
 
 const Card = ({ children, showBack = false, className }: Props) => {
   // const { navigate } = useRouter()
-  // const onBack = () => navigate({ to: '/' })
-  const { storedValue: storedCharacter } = useLocalStorage('character')
-
-  console.log(storedCharacter);
-  
+  // const onBack = () => navigate({ to: '/' })  
 
   return <div className={twMerge('card shadow-light', className)}>{children}</div>
 }
