@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.91" height="24" viewBox="0 0 16.91 24">
+  <g>
+    <rect x="1.03" y="4.73" width="12.87" height="14.39" transform="translate(14.92 23.86) rotate(180)" fill="#606060"/>
+    <rect x="5.51" y="15.9" width="10.39" height="7.39" transform="translate(21.41 39.2) rotate(180)" fill="#999"/>
+    <rect x="10.56" y="0.72" width="5.34" height="7.39" transform="translate(26.47 8.84) rotate(180)" fill="#ccc"/>
+    <path d="M9.54,7.07h6.4a.92.92,0,0,1,.92.92V8.2a.92.92,0,0,1-.92.92H9.54a0,0,0,0,1,0,0V7.07a0,0,0,0,1,0,0Z" transform="translate(26.4 16.19) rotate(180)"/>
+    <path d="M9.55,0h6.4a.92.92,0,0,1,.92.92v.21a.92.92,0,0,1-.92.92H9.55a0,0,0,0,1,0,0V0A0,0,0,0,1,9.55,0Z" transform="translate(26.41 2.05) rotate(180)"/>
+    <path d="M4.22,14.88H16a.92.92,0,0,1,.92.92V16a.92.92,0,0,1-.92.92H4.22a0,0,0,0,1,0,0V14.88A0,0,0,0,1,4.22,14.88Z" transform="translate(21.13 31.81) rotate(180)"/>
+    <path d="M4.22,21.95H16a.92.92,0,0,1,.92.92v.21A.92.92,0,0,1,16,24H4.22a0,0,0,0,1,0,0V21.95a0,0,0,0,1,0,0Z" transform="translate(21.13 45.95) rotate(180)"/>
+    <rect x="0.69" y="18.41" width="9.12" height="2.05" rx="0.92" ry="0.92" transform="translate(24.69 14.19) rotate(90)"/>
+    <rect x="6" y="3.54" width="9.12" height="2.05" rx="0.92" ry="0.92" transform="translate(15.13 -6) rotate(90)"/>
+    <rect y="3.54" width="10.63" height="2.05" rx="0.92" ry="0.92" transform="translate(10.63 9.12) rotate(180)"/>
+    <rect y="18.41" width="6.27" height="2.05" rx="0.92" ry="0.92" transform="translate(6.27 38.88) rotate(-180)"/>
+    <rect x="-7.44" y="10.97" width="16.93" height="2.05" rx="0.92" ry="0.92" transform="translate(13.03 10.97) rotate(90)"/>
+  </g>
+</svg>
