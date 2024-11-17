@@ -13,7 +13,6 @@ const Input = ({ initialValue, className, onChange, onBlur, ...props }: Props) =
   const [value, setValue] = useState(initialValue)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('handleOnChange', e.target.value)
     setValue(e.target.value)
     if (onChange) onChange(e)
   }
