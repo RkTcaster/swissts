@@ -1,6 +1,6 @@
 import { ErrorComponentProps, useRouter } from '@tanstack/react-router'
 import ErrorModal from '../Modal/ErrorModal'
-import { AppError } from '@/types'
+
 
 const RouteErrorComponent = ({ error, reset }: ErrorComponentProps) => {
   const router = useRouter()
@@ -10,7 +10,7 @@ const RouteErrorComponent = ({ error, reset }: ErrorComponentProps) => {
     reset()
   }
 
-  return <ErrorModal error={error as AppError} title={'Ups! Hubo un problema'} onRetry={onRetry} />
+  return <ErrorModal error={error as Error} title={'Ups! Hubo un problema'} onRetry={onRetry} />
 }
 
 export default RouteErrorComponent

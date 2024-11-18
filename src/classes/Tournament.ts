@@ -4,28 +4,28 @@ import { Player } from "./Player";
 import { Round } from "./Round";
 
 export class Tournament {
-  public playersString: string[] = [];
+  public playersNames: string[] = [];
   public players: Player[] = [];
   public unplayedMatches: Match[] = [];
   private returnRound: Match[] = [];
-  private seed: number;
+  private seed: number | undefined;
   public rounds: Round[] = [];
 
-  constructor({
-    playersString,
+  public startTournament({
+    playersNames,
     date,
   }: {
-    playersString: string[];
+    playersNames: string[];
     date: string;
   }) {
-    this.playersString = playersString;
+    this.playersNames = playersNames;
     this.createPlayers();
     this.setAllMatchMatrix();
     this.seed = this.setSeed({ date });
   }
-
+  
   private createPlayers() {
-    this.players = this.playersString.map(
+    this.players = this.playersNames.map(
       (name) => new Player({ name, wins: 0, setWins: 0, setLoss:0 })
     );
   }
@@ -66,6 +66,9 @@ export class Tournament {
   }
 
   private getNewRound() {
+    if (this.seed === undefined) {
+      throw new Error("Missing seed")
+    }
     return new Round({
       unplayedMatches: this.unplayedMatches,
       seed: this.seed,

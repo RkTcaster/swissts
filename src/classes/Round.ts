@@ -1,4 +1,4 @@
-import { gameUtils } from "../source/utils/utils";
+import { gameUtils } from "@/utils/utils";
 import { Match } from "./Match";
 import { Player } from "./Player";
 

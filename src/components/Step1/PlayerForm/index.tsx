@@ -2,7 +2,9 @@ import { useState } from 'react'
 import PlayerInputField from './PlayerInputField'
 import Button from '@/components/Button'
 
-const PlayerForm = () => {
+type Props = { submitPlayers: (players: string[]) => void }
+
+const PlayerForm = ({ submitPlayers }: Props) => {
   const [players, setPlayers] = useState<string[]>(['', ''])
 
   const handlePlayerNameChange = ({ name, index }: { name: string; index: number }) => {
@@ -48,6 +50,13 @@ const PlayerForm = () => {
           label={'Add Player'}
           onClick={handleAddPlayer}
           className='button-primary'
+        />
+        <Button
+          label={'Start Tournament'}
+          onClick={() => {
+            submitPlayers(players)
+          }}
+          className='button-secondary'
         />
       </div>
     </div>
