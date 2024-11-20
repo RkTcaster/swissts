@@ -2,6 +2,7 @@ import Icon from '@/src/components/Icon'
 import Input from '@/src/components/Input'
 import css from './style.module.css'
 
+//If this wokrs, we can delete PlayerInputField
 type Props = {
   result: string
   index: number
