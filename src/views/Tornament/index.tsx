@@ -5,14 +5,26 @@ import React from 'react'
 type Props = {}
 
 const RandomSeatStep = (props: Props) => {
-  const [players, setPlayers] = React.useState<Player[]>([])
   const { tournament } = useTournament()
 
+  const randomPlayers = tournament.players.map((player) => {
+    return { player, random: Math.random() }
+  }).sort((a, b) => a.random - b.random).map((player) => player.player)
+
   return (
-    <div>
-      <button onClick={() => setPlayers(tournament.players)}>click me</button>
-      {players.map((player, index) => {
-        return <div key={index}>{player.name}</div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+      {randomPlayers.map((player, index) => {
+        return (
+          <select key={index}>
+            {tournament.players.map((playerOption, optionIndex) => {
+              return (
+                <option key={optionIndex} value={playerOption.name} selected={playerOption === player}>
+                  {playerOption.name}
+                </option>
+              )
+            })}
+          </select>
+        )
       })}
     </div>
   )
