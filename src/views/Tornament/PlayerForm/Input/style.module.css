@@ -1,0 +1,9 @@
+.icon {
+    fill: #cf4141;
+    height: 24px;
+    border-radius: 20px;
+}
+
+.icon:hover {
+    fill: #ac1c1c;
+}

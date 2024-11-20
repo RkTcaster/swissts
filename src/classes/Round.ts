@@ -1,6 +1,6 @@
-import { gameUtils } from "@/utils/utils";
 import { Match } from "./Match";
 import { Player } from "./Player";
+import { gameUtils } from "./utils/utils";
 
 export class Round {
   private unplayedMatches: Match[] = [];

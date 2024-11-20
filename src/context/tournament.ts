@@ -1,5 +1,5 @@
-import { Tournament } from '@/classes/Tournament'
 import React, { createContext, useContext } from 'react'
+import { Tournament } from '../classes/Tournament'
 
 type TournamentContexType = {
   tournament: Tournament

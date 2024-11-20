@@ -1,23 +1,22 @@
-import Button from '@/components/Button'
-import Card from '@/components/Card'
-import PlayerForm from '@/components/Step1/PlayerForm'
-import { useTournament } from '@/context/tournament'
+import { useTournament } from '@/src/context/tournament'
+import PlayerForm from '../Tornament/PlayerForm'
+import { useRouter } from 'next/router'
 
 const Home = () => {
   const { tournament } = useTournament()
+  const router = useRouter()
+
   const submitPlayers = (players: string[]) => {
     const date = '2016-07-19T20:23:01.804Z'
     tournament.startTournament({ playersNames: players, date: date })
-    console.log(tournament);
+    console.log('Start Tournament: ', tournament)
+    router.push('/random_seats')
   }
-  
 
   return (
-    <section className='flex items-center justify-center mt-6 container'>
-      <Card className='w-fit'>
-        <PlayerForm submitPlayers={submitPlayers} />      
-      </Card>
-    </section>
+    <>
+      <PlayerForm submitPlayers={submitPlayers} />
+    </>
   )
 }
 

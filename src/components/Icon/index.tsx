@@ -1,35 +1,37 @@
-import Close from '@/assets/icons/close.svg?react'
-import Image from '@/assets/icons/image-icon.svg?react'
-import { twMerge } from 'tailwind-merge'
-import './icon.css'
+import css from './icon.module.css'
+import classNames from 'classnames'
+import { FunctionComponent, SVGProps } from 'react'
 
 const iconsMap = {
-  Close,
-  Image
+  Close: (props: IconProps) => (
+    <svg xmlns='http://www.w3.org/2000/svg' className={props.className} viewBox='0 0 24 24' {...props}>
+      <path d='m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z'></path>
+    </svg>
+  ),
 } as const
 
 export type IconsMap = typeof iconsMap
 export type IconsNames = keyof IconsMap
-interface IconProps extends React.SVGProps<SVGSVGElement> {
+
+interface IconProps extends SVGProps<SVGSVGElement> {
   name: IconsNames
   clickable?: boolean
   onClick?: () => void
   className?: string
-  svgProps?: React.SVGProps<SVGSVGElement>
+  svgProps?: SVGProps<SVGSVGElement>
 }
 
-const Icon = ({ name, onClick, className, svgProps }: IconProps) => {
-  const IconToRender = iconsMap[name]
+const Icon = (props: IconProps) => {
+  const IconToRender = iconsMap[props.name]
 
   if (!IconToRender) return null
+
   return (
     <IconToRender
-      {...svgProps}
-      className={twMerge(
-        `${!!onClick && 'cursor-pointer hover:fill-primary-600'} transition-all h-5 fill-primary-800`,
-        className
-      )}
-      onClick={onClick}
+      {...props}
+      style={{ cursor: props.onClick ? 'pointer' : 'default' }}
+      className={classNames(css.icon, props.className)}
+      onClick={props.onClick}
     />
   )
 }

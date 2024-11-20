@@ -1,6 +1,6 @@
-import { twMerge } from 'tailwind-merge'
-import './input.css'
+import css from './input.module.css'
 import { useState } from 'react'
+import classNames from 'classnames'
 
 type Props = {
   initialValue?: string
@@ -18,7 +18,13 @@ const Input = ({ initialValue, className, onChange, onBlur, ...props }: Props) =
   }
 
   return (
-    <input onChange={handleOnChange} onBlur={onBlur} className={twMerge('input', className)} value={value} {...props} />
+    <input
+      onChange={handleOnChange}
+      onBlur={onBlur}
+      className={classNames(css.input, className)}
+      value={value}
+      {...props}
+    />
   )
 }
 

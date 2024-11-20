@@ -1,7 +1,6 @@
-import { Tournament } from '@/classes/Tournament'
-import { TournamentContext } from '@/context/tournament'
-import { ReactNode } from '@tanstack/react-router'
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
+import { Tournament } from '../classes/Tournament'
+import { TournamentContext } from '../context/tournament'
 
 type Props = { children: ReactNode }
 
