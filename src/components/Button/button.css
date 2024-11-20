@@ -18,3 +18,11 @@ button.button-primary:disabled {
 button.button-primary:enabled:hover {
   @apply bg-primary-700;
 }
+
+button.button-secondary {
+  @apply bg-primary-800 text-white;
+}
+
+button.button-secondary:enabled:hover {
+  @apply bg-primary-700;
+}
