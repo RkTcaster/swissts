@@ -7,7 +7,7 @@ import RandomSeatStep from '../RandomSeat'
 type Props = { submitPlayers: (players: string[]) => void }
 
 const PlayerForm = ({ submitPlayers }: Props) => {
-  // const router = useRouter()
+  const router = useRouter()
   const [players, setPlayers] = useState<string[]>(['', ''])
   const [showRandomSeatStep, setShowRandomSeatStep] = useState(false)
 
@@ -70,14 +70,14 @@ const PlayerForm = ({ submitPlayers }: Props) => {
           }
         })}
 
+      </div>
+      <div className='grid grid-1 gap-4'>
         <Button
           disabled={players.length > 7}
           label={'Add Player'}
           onClick={handleAddPlayer}
           className='button-primary'
         />
-      </div>
-      <div className='grid grid-1 gap-4'>
         <Button
           label={'Get draft positions'}
           disabled={players.length < 2 || new Set(players).size !== players.length}
@@ -86,6 +86,12 @@ const PlayerForm = ({ submitPlayers }: Props) => {
         />        
         {/* Esto esta mal, pero no se como hacerlo */}
         {showRandomSeatStep && <RandomSeatStep players= {players} />} 
+        <Button
+          label={'Get first Round'}
+          disabled={players.length < 2 || new Set(players).size !== players.length}
+          onClick={() => (submitPlayers(players), router.push("./rounds"))}
+          className='button-secondary'
+        />   
 
       </div>
     </div>

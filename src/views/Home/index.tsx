@@ -10,13 +10,12 @@ const Home = () => {
     const date = '2016-07-19T20:23:01.804Z'
     tournament.startTournament({ playersNames: players, date: date })
     console.log('Start Tournament: ', tournament)
-    router.push('/random_seats')
+
   }
 
   return (
     <>
       <PlayerForm submitPlayers={submitPlayers} />
-      
     </>
   )
 }
