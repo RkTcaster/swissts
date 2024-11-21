@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import PlayerInputField from './Input'
 import Button from '@/src/components/Button'
 import PlayerDuplicateInputField from './DuplicateInput'
-import RandomSeatStep from '@/src/views/Tornament'
-
+import { useRouter } from 'next/router'
 
 type Props = { submitPlayers: (players: string[]) => void }
 
 const PlayerForm = ({ submitPlayers }: Props) => {
+  const router = useRouter()
   const [players, setPlayers] = useState<string[]>(['', ''])
 
   const handlePlayerNameChange = ({ name, index }: { name: string; index: number }) => {
@@ -33,12 +32,6 @@ const PlayerForm = ({ submitPlayers }: Props) => {
     })
   }
 
-const [showRandomSeats, setShowRandomSeats] = useState(false)
-
-const handleShowRandomSeats = () => {
-  
-  setShowRandomSeats(true)
-}
 
   return (
     <div className='grid grid-1 gap-4'>
@@ -80,20 +73,19 @@ const handleShowRandomSeats = () => {
         <Button
           label={'Start Tournament'}
           disabled={players.length < 2 || new Set(players).size !== players.length}
-          onClick={() => {
-            submitPlayers(players)            
+          onClick={() => {  
+           // router.push('/random_seats')
           }}
           className='button-secondary'
         />
-        <RandomSeatStep>
-          
-        </RandomSeatStep>
-      
 
         {/* <div>------------------------</div> */}
         {/* {players.map((player, i) => (
           <div className='grid grid-cols-2 gap-4' key={`${player}${i}`}>
             {player}
+            <Select         
+            index={i}
+            />
           </div>
         ))} */}
       </div>

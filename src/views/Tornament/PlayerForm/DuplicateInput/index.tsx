@@ -1,6 +1,7 @@
 import Icon from '@/src/components/Icon'
 import Input from '@/src/components/Input'
 import css from './style.module.css'
+import classNames from 'classnames'
 
 //If this wokrs, we can delete PlayerInputField
 type Props = {
@@ -12,15 +13,14 @@ type Props = {
 }
 
 const PlayerDuplicateInputField = ({ result, inputValue, index, handlePlayerNameChange, removePlayer }: Props) => {
-  if ((result === 'duplicated')) {
-    console.log("Entro al if")
+  if (result === 'duplicated') {
     return (
       <div className='col-span-1 flex items-center justify-between gap-4' key={`${inputValue}${index}`}>
         <Input
           type='text'
           placeholder='Player name...'
           initialValue={inputValue}
-          className={css.inputDuplicate}
+          className={classNames(css.inputDuplicate)} //No se bien como definir el className
           onBlur={(e) => {
             const newValue = e.target.value.trim()
             handlePlayerNameChange({ name: newValue, index })
@@ -36,8 +36,6 @@ const PlayerDuplicateInputField = ({ result, inputValue, index, handlePlayerName
       </div>
     )
   } else {
-    console.log("Entro al else")
-
     return (
       <div className='col-span-1 flex items-center justify-between gap-4' key={`${inputValue}${index}`}>
         <Input
