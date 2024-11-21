@@ -2,12 +2,14 @@ import { useState } from 'react'
 import Button from '@/src/components/Button'
 import PlayerDuplicateInputField from './DuplicateInput'
 import { useRouter } from 'next/router'
+import RandomSeatStep from '../RandomSeat'
 
 type Props = { submitPlayers: (players: string[]) => void }
 
 const PlayerForm = ({ submitPlayers }: Props) => {
-  const router = useRouter()
+  // const router = useRouter()
   const [players, setPlayers] = useState<string[]>(['', ''])
+  const [showRandomSeatStep, setShowRandomSeatStep] = useState(false)
 
   const handlePlayerNameChange = ({ name, index }: { name: string; index: number }) => {
     setPlayers((prevPlayers) => {
@@ -32,6 +34,12 @@ const PlayerForm = ({ submitPlayers }: Props) => {
     })
   }
 
+  const handleStartTournament = () => {
+    if (players.length >= 2 && new Set(players).size === players.length){
+      console.log("Entro start Tournament Handler")
+      setShowRandomSeatStep(true)
+    }
+  }
 
   return (
     <div className='grid grid-1 gap-4'>
@@ -71,23 +79,14 @@ const PlayerForm = ({ submitPlayers }: Props) => {
       </div>
       <div className='grid grid-1 gap-4'>
         <Button
-          label={'Start Tournament'}
+          label={'Get draft positions'}
           disabled={players.length < 2 || new Set(players).size !== players.length}
-          onClick={() => {  
-           // router.push('/random_seats')
-          }}
+          onClick={handleStartTournament}
           className='button-secondary'
-        />
+        />        
+        {/* Esto esta mal, pero no se como hacerlo */}
+        {showRandomSeatStep && <RandomSeatStep players= {players} />} 
 
-        {/* <div>------------------------</div> */}
-        {/* {players.map((player, i) => (
-          <div className='grid grid-cols-2 gap-4' key={`${player}${i}`}>
-            {player}
-            <Select         
-            index={i}
-            />
-          </div>
-        ))} */}
       </div>
     </div>
   )

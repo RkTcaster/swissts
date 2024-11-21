@@ -5,6 +5,7 @@ import React from 'react'
 type Props = {}
 
 const RandomSeatStep = (props: Props) => {
+  console.log("Entro en RandomSeatStep")
   const { tournament } = useTournament()
 
   const randomPlayers = tournament.players.map((player) => {

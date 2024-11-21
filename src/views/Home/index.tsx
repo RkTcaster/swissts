@@ -16,6 +16,7 @@ const Home = () => {
   return (
     <>
       <PlayerForm submitPlayers={submitPlayers} />
+      
     </>
   )
 }

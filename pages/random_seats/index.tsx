@@ -1,3 +1,4 @@
+import { Tournament } from '@/src/classes/Tournament'
 import pageTitle from '@/src/components/Layout/PageTitle'
 import RandomSeatStep from '@/src/views/Tornament'
 

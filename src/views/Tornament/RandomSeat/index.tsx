@@ -1,30 +1,47 @@
 import { useTournament } from '@/src/context/tournament'
-import React from 'react'
+import React, { useState } from 'react'
 
-type Props = {}
+type Props = { players: string[] }
 
-const RandomSeatStep = (props: Props) => {
-  const { tournament } = useTournament()
-
-  const randomPlayers = tournament.players.map((player) => {
-    return { player, random: Math.random() }
-  }).sort((a, b) => a.random - b.random).map((player) => player.player)
+const RandomSeatStep = ({ players }: Props) => {
+  const randomPlayers = players
+    .map((player) => {
+      return { player, random: Math.random() }
+    })
+    .sort((a, b) => a.random - b.random)
+    .map((player) => player.player)
+ 
+    const [isChecked, setIsChecked] = useState(false)
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setIsChecked(e.target.checked)
+    }
 
   return (
+    <div>
+    <div style={{ display: 'flex', gap: '12px' }}>
+    <input 
+    type="checkbox" 
+    checked={isChecked}     
+    onChange={handleCheckboxChange}
+    />
+    <div>Modificar Posiciones</div>
+  </div>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+      
       {randomPlayers.map((player, index) => {
         return (
-          <select key={index}>
-            {tournament.players.map((playerOption, optionIndex) => {
+          <select key={index} disabled={!isChecked}>
+            {players.map((playerOption, optionIndex) => {
               return (
-                <option key={optionIndex} value={playerOption.name} selected={playerOption === player}>
-                  {playerOption.name}
+                <option key={optionIndex} value={playerOption} selected={playerOption === player}>
+                  {playerOption}
                 </option>
               )
             })}
           </select>
         )
       })}
+    </div>
     </div>
   )
 }
