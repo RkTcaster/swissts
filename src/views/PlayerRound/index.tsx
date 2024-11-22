@@ -1,6 +1,6 @@
 import { Player } from '@/src/classes/Player'
 
-//If this wokrs, we can delete PlayerInputField
+//This is not arranged => also need to add loss and draws in the scores
 type Props = {
   players: Player[] 
 }
@@ -12,7 +12,7 @@ const PlayerScoreDiv = ({ players }: Props) => {
         <div key={playerIndex} style={{ display: 'flex', gap: '12px' }}>
           <div>{player.name}</div>
           <div>
-            {player.wins}-{player.setWins}-{player.setLoss}
+            {player.wins}-{player.setWins}-{player.setLoss} 
           </div>
         </div>
       ))}
