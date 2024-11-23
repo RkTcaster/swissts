@@ -11,12 +11,12 @@ export class Tournament {
   public rounds: Round[] = []
 
   public startTournament({ playersNames, date }: { playersNames: string[]; date: string }) {
-    this.createPlayers({playersNames})
+    this.createPlayers({ playersNames })
     this.setAllMatchMatrix()
     this.seed = this.setSeed({ date })
   }
 
-  private createPlayers({playersNames}:{playersNames: string[]}) {
+  private createPlayers({ playersNames }: { playersNames: string[] }) {
     this.players = playersNames.map((name) => new Player({ name, wins: 0, setWins: 0, setLoss: 0 }))
   }
 
