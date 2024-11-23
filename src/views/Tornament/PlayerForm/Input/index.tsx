@@ -7,15 +7,18 @@ type Props = {
   inputValue: string
   handlePlayerNameChange: ({ name, index }: { name: string; index: number }) => void
   removePlayer: (index: number) => void
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>
 }
 
-const PlayerInputField = ({ inputValue, index, handlePlayerNameChange, removePlayer }: Props) => {
+const PlayerInputField = ({ inputValue, index, handlePlayerNameChange, removePlayer, inputProps }: Props) => {
   return (
-    <div className='col-span-1 flex items-center justify-between gap-4' key={`${inputValue}${index}`}>
+    <div key={`${inputValue}${index}`}>
       <Input
         type='text'
         placeholder='Player name...'
         initialValue={inputValue}
+        disabled={inputProps?.disabled}
+        className={inputProps?.className}
         onBlur={(e) => {
           const newValue = e.target.value.trim()
           handlePlayerNameChange({ name: newValue, index })

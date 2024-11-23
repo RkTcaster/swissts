@@ -10,6 +10,7 @@ type Props = {
 } & React.InputHTMLAttributes<HTMLInputElement>
 
 const Input = ({ initialValue, className, onChange, onBlur, ...props }: Props) => {
+
   const [value, setValue] = useState(initialValue)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

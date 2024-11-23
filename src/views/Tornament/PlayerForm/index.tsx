@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import Button from '@/src/components/Button'
-import PlayerDuplicateInputField from './DuplicateInput'
+import cssInput from './Input/style.module.css'
+import PlayerInputField from './Input'
 import { useRouter } from 'next/router'
 import RandomSeatStep from '../RandomSeat'
+import { randomSeatsUtils } from '../RandomSeat/utils'
 
 type Props = { submitPlayers: (players: string[]) => void }
 
@@ -10,8 +12,10 @@ const PlayerForm = ({ submitPlayers }: Props) => {
   const router = useRouter()
   const [players, setPlayers] = useState<string[]>(['', ''])
   const [showRandomSeatStep, setShowRandomSeatStep] = useState(false)
+  const [disablePlayerForm, setDisablePlayerForm] = useState(false)
 
   const handlePlayerNameChange = ({ name, index }: { name: string; index: number }) => {
+    if (name === '') return
     setPlayers((prevPlayers) => {
       return prevPlayers.map((player, playerIndex) => {
         if (playerIndex === index) {
@@ -35,43 +39,32 @@ const PlayerForm = ({ submitPlayers }: Props) => {
   }
 
   const handleStartTournament = () => {
-    if (players.length >= 2 && new Set(players).size === players.length){
-      console.log("Entro start Tournament Handler")
+    if (players.length >= 2 && new Set(players).size === players.length) {
+      console.log('Entro start Tournament Handler')
+      setDisablePlayerForm(true)
       setShowRandomSeatStep(true)
     }
   }
 
   return (
-    <div className='grid grid-1 gap-4'>
-      <div className='grid grid-1 gap-4'>
+    <div>
+      <div>
         {players.map((player, i) => {
-          if (players.lastIndexOf(player) !== i || players.indexOf(player) !== players.lastIndexOf(player)) {
-            return (
-              <PlayerDuplicateInputField
-                result='duplicated'
-                key={`${player}${i}`}
-                index={i}
-                inputValue={player}
-                handlePlayerNameChange={handlePlayerNameChange}
-                removePlayer={removePlayer}
-              />
-            )
-          } else {
-            return (
-              <PlayerDuplicateInputField
-                result='simple'
-                key={`${player}${i}`}
-                index={i}
-                inputValue={player}
-                handlePlayerNameChange={handlePlayerNameChange}
-                removePlayer={removePlayer}
-              />
-            )
-          }
+          const isDuplicated =
+            players.lastIndexOf(player) !== i || players.indexOf(player) !== players.lastIndexOf(player)
+          return (
+            <PlayerInputField
+              key={`${player}${i}`}
+              index={i}
+              inputValue={player}
+              handlePlayerNameChange={handlePlayerNameChange}
+              removePlayer={removePlayer}
+              inputProps={{disabled: disablePlayerForm, className: isDuplicated ? cssInput.inputDuplicate : ''}}
+            />
+          )
         })}
-
       </div>
-      <div className='grid grid-1 gap-4'>
+      <div>
         <Button
           disabled={players.length > 7}
           label={'Add Player'}
@@ -82,17 +75,14 @@ const PlayerForm = ({ submitPlayers }: Props) => {
           label={'Get draft positions'}
           disabled={players.length < 2 || new Set(players).size !== players.length}
           onClick={handleStartTournament}
-          className='button-secondary'
-        />        
+        />
         {/* Esto esta mal, pero no se como hacerlo */}
-        {showRandomSeatStep && <RandomSeatStep players= {players} />} 
+        {showRandomSeatStep && <RandomSeatStep players={players} randomPlayers={randomSeatsUtils.getRandomPlayers(players)} />}
         <Button
           label={'Get first Round'}
           disabled={players.length < 2 || new Set(players).size !== players.length}
-          onClick={() => (submitPlayers(players), router.push("./rounds"))}
-          className='button-secondary'
-        />   
-
+          onClick={() => (submitPlayers(players), router.push('./rounds'))}
+        />
       </div>
     </div>
   )

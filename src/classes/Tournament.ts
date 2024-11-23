@@ -4,7 +4,6 @@ import { Round } from './Round'
 import { gameUtils } from './utils/utils'
 
 export class Tournament {
-  public playersNames: string[] = []
   public players: Player[] = []
   public unplayedMatches: Match[] = []
   private returnRound: Match[] = []
@@ -12,14 +11,13 @@ export class Tournament {
   public rounds: Round[] = []
 
   public startTournament({ playersNames, date }: { playersNames: string[]; date: string }) {
-    this.playersNames = playersNames
-    this.createPlayers()
+    this.createPlayers({playersNames})
     this.setAllMatchMatrix()
     this.seed = this.setSeed({ date })
   }
 
-  private createPlayers() {
-    this.players = this.playersNames.map((name) => new Player({ name, wins: 0, setWins: 0, setLoss: 0 }))
+  private createPlayers({playersNames}:{playersNames: string[]}) {
+    this.players = playersNames.map((name) => new Player({ name, wins: 0, setWins: 0, setLoss: 0 }))
   }
 
   private setAllMatchMatrix() {

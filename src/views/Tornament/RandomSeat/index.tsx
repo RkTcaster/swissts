@@ -1,47 +1,37 @@
 import { useTournament } from '@/src/context/tournament'
 import React, { useState } from 'react'
+import { randomSeatsUtils } from './utils'
 
-type Props = { players: string[] }
+type Props = { players: string[], randomPlayers: string[] }
 
-const RandomSeatStep = ({ players }: Props) => {
-  const randomPlayers = players
-    .map((player) => {
-      return { player, random: Math.random() }
-    })
-    .sort((a, b) => a.random - b.random)
-    .map((player) => player.player)
- 
-    const [isChecked, setIsChecked] = useState(false)
-    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setIsChecked(e.target.checked)
-    }
+const RandomSeatStep = ({ players, randomPlayers }: Props) => {
+  const [isChecked, setIsChecked] = useState(false)
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked)
+  }
 
   return (
     <div>
-    <div style={{ display: 'flex', gap: '12px' }}>
-    <input 
-    type="checkbox" 
-    checked={isChecked}     
-    onChange={handleCheckboxChange}
-    />
-    <div>Modificar Posiciones</div>
-  </div>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-      
-      {randomPlayers.map((player, index) => {
-        return (
-          <select key={index} disabled={!isChecked}>
-            {players.map((playerOption, optionIndex) => {
-              return (
-                <option key={optionIndex} value={playerOption} selected={playerOption === player}>
-                  {playerOption}
-                </option>
-              )
-            })}
-          </select>
-        )
-      })}
-    </div>
+      <div style={{ display: 'flex', gap: '12px' }}>
+        <input type='checkbox' checked={isChecked} onChange={handleCheckboxChange} />
+        <div>Modificar Posiciones</div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        {randomPlayers.map((player, index) => {
+          return (
+            <select key={index} disabled={!isChecked} defaultValue={player}>
+              {players.map((playerOption, optionIndex) => {
+                return (
+                  <option key={optionIndex} value={playerOption}>
+                    {playerOption}
+                  </option>
+                )
+              })}
+            </select>
+          )
+        })}
+      </div>
     </div>
   )
 }
