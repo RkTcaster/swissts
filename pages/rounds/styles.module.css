@@ -1,0 +1,17 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.scoreTableContainer {
+    grid-column: 2;
+}
+
+.selectLabel {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
