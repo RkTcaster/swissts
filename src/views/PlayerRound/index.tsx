@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import css from './style.module.css'
 import PlayerRoundRow from './PlayerRoundRow'
 
-//This is not arranged => also need to add loss and draws in the scores
 type Props = {
   containerClassName?: string
 }

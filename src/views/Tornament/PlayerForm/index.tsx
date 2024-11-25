@@ -10,7 +10,7 @@ type Props = { submitPlayers: (players: string[]) => void }
 
 const PlayerForm = ({ submitPlayers }: Props) => {
   const router = useRouter()
-  const [players, setPlayers] = useState<string[]>(['', ''])
+  const [players, setPlayers] = useState<string[]>(['J1', 'J2',"J3","J4"])
   const [showRandomSeatStep, setShowRandomSeatStep] = useState(false)
   const [disablePlayerForm, setDisablePlayerForm] = useState(false)
 

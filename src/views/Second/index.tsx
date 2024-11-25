@@ -6,11 +6,9 @@ import PlayerScoreDiv from '@/src/views/PlayerRound'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import css from './styles.module.css'
+import MatchInput from '../PlayerRound/Match'
 
-
-const Second = () => {    
-
-  console.log("Entramos")
+const Second = () => {
   const { tournament } = useTournament()
   const router = useRouter()
   const [currentRoundsAmount, setCurrentRoundsAmount] = useState<number>(0)
@@ -25,7 +23,7 @@ const Second = () => {
 
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>({})
 
-  const handleSelectChange = (key: string, value: string) => {
+  const handleSelectChange = (key: string, value: string) => { 
     setSelectedValues((prev) => ({
       ...prev,
       [key]: value,
@@ -34,20 +32,23 @@ const Second = () => {
 
   const logValue = () => {
     Object.entries(currentRoundMatches).forEach(([tournamentPlayerKey, match]) => {
-      match.player1.player.setWins += Number(selectedValues[match.player1.player.name])
-      match.player1.player.setLoss += Number(selectedValues[match.player2.player.name])
-      match.player2.player.setWins += Number(selectedValues[match.player2.player.name])
-      match.player2.player.setLoss += Number(selectedValues[match.player1.player.name])
-      if (Number(selectedValues[match.player1.player.name]) > Number(selectedValues[match.player2.player.name])) {
-        console.log('gano jugador 1')
+      const player1SetWins = Number(selectedValues[match.player1.player.name])
+      const player2SetWins = Number(selectedValues[match.player2.player.name])
+
+      match.player1.player.setWins += player1SetWins
+      match.player1.player.setLoss += player2SetWins
+      match.player2.player.setWins += player2SetWins
+      match.player2.player.setLoss += player1SetWins
+
+      if (player1SetWins > player2SetWins) {
         match.player1.player.wins += 1
-      } else if (
-        Number(selectedValues[match.player1.player.name]) < Number(selectedValues[match.player2.player.name])
-      ) {
-        console.log('gano jugador 2')
+        //Add match.player2.player.loss += 1
+      } else if (player1SetWins < player2SetWins) {
         match.player2.player.wins += 1
+        //Add match.player1.player.loss += 1
       } else {
-        console.log('Empate')
+        //Add match.player1.player.draw += 1
+        //Add match.player2.player.draw += 1
       }
     })
     console.log(tournament)
@@ -56,30 +57,11 @@ const Second = () => {
   return (
     <div className={css.container}>
       <div style={{ display: 'flex', gap: '12px' }}>
-        <div style={{ display: 'flex', gap: '12px' }}>
-          {currentRoundMatches.map((match, matchIndex) => {
-            return (
-              <div style={{ display: 'grid', gap: '12px' }} className='flex' key={matchIndex}>
-                <div>
-                  <p className={css.selectLabel}>{match.player1.player.name}</p>
-                  <Select
-                    index={matchIndex}
-                    key={match.player1.player.name}
-                    onChange={(value) => handleSelectChange(`${match.player1.player.name}`, value)}
-                  />
-                </div>
-                <div>
-                  <p className={css.selectLabel}>{match.player2.player.name}</p>
-                  <Select
-                    index={matchIndex}
-                    key={match.player2.player.name}
-                    onChange={(value) => handleSelectChange(`${match.player2.player.name}`, value)}
-                  />
-                </div>
-              </div>
-            )
-          })}
-        </div>
+            <MatchInput  
+            matches={currentRoundMatches}  
+            onSelectChange = {handleSelectChange}            
+            />
+
       </div>
       <PlayerScoreDiv containerClassName={css.scoreTableContainer} />
       <Button
