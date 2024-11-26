@@ -17,7 +17,7 @@ export class Tournament {
   }
 
   private createPlayers({ playersNames }: { playersNames: string[] }) {
-    this.players = playersNames.map((name) => new Player({ name, wins: 0, setWins: 0, setLoss: 0 }))
+    this.players = playersNames.map((name) => new Player({ name, wins: 0, loss: 0, draws:0, gameWins: 0, gameLoss: 0 }))
   }
 
   private setAllMatchMatrix() {

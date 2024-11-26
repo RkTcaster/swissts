@@ -33,20 +33,20 @@ const Second = () => {
       const player1SetWins = Number(selectedValues[match.player1.player.name]) || 0
       const player2SetWins = Number(selectedValues[match.player2.player.name]) || 0
 
-      match.player1.player.setWins += player1SetWins
-      match.player1.player.setLoss += player2SetWins
-      match.player2.player.setWins += player2SetWins
-      match.player2.player.setLoss += player1SetWins
+      match.player1.player.gameWins += player1SetWins
+      match.player1.player.gameLoss += player2SetWins
+      match.player2.player.gameWins += player2SetWins
+      match.player2.player.gameLoss += player1SetWins
 
-      if (player1SetWins > player2SetWins) {
+      if (player1SetWins > player2SetWins) { //Transform to a Match method 
         match.player1.player.wins += 1
-        //Add match.player2.player.loss += 1
+        match.player2.player.loss += 1
       } else if (player1SetWins < player2SetWins) {
         match.player2.player.wins += 1
-        //Add match.player1.player.loss += 1
+        match.player1.player.loss += 1
       } else {
-        //Add match.player1.player.draw += 1
-        //Add match.player2.player.draw += 1
+        match.player1.player.draws += 1
+        match.player2.player.draws += 1
       }
     })
     tournament.createRound()

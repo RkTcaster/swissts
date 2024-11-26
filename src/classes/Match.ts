@@ -17,6 +17,6 @@ export class Match {
   }
 
   public calculateFairness() { //Tengo que revisar esta formula, probablem, el problema es cuando genero los resultados de la ronda 
-    this.unfairness = Math.abs(this.player1.player.wins*100 + this.player1.player.setWins - this.player2.player.wins*100 -  this.player2.player.setWins)
+    this.unfairness = Math.abs(this.player1.player.wins*100 + this.player1.player.gameWins - this.player2.player.wins*100 -  this.player2.player.gameWins)
   }
 }
