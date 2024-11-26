@@ -15,3 +15,8 @@
     white-space: nowrap;
 }
 
+.matches {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 16px;
+}
