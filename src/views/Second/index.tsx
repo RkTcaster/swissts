@@ -8,7 +8,7 @@ import RoundInput from '../PlayerRound/Round'
 
 const Second = () => {
   const { tournament } = useTournament()
-  
+
   const [visibleRounds, setVisibleRounds] = useState<number[]>([])
   const [currentRoundMatches, setCurrentRoundMatches] = useState<Match[]>([])
 
@@ -50,11 +50,9 @@ const Second = () => {
       }
     })
     tournament.createRound()
-    console.log("Rounds Lenght_ ",tournament.rounds.length)
-    const nextRoundIndex = tournament.rounds.length - 1;    
+    const nextRoundIndex = tournament.rounds.length - 1
     setVisibleRounds((prev) => [...prev, nextRoundIndex])
     setCurrentRoundMatches(tournament.rounds[nextRoundIndex].matches)
-    //console.log("rondas:",currentRoundMatches)
   }
 
   return (
