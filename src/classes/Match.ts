@@ -21,6 +21,11 @@ export class Match {
   }
 
   public evaluateMatchWinner({player1GameWins,player2GameWins}:{player1GameWins:number,player2GameWins:number}) {
+    this.player1.player.gameWins += player1GameWins
+    this.player1.player.gameLoss += player2GameWins
+    this.player2.player.gameWins += player2GameWins
+    this.player2.player.gameLoss += player1GameWins
+
     if (player1GameWins > player2GameWins) { //Transform to a Match method 
       this.player1.player.wins += 1
       this.player2.player.loss += 1

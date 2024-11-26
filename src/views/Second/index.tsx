@@ -33,23 +33,7 @@ const Second = () => {
       const player1GameWins = Number(selectedValues[match.player1.player.name]) || 0
       const player2GameWins = Number(selectedValues[match.player2.player.name]) || 0
 
-      match.player1.player.gameWins += player1GameWins
-      match.player1.player.gameLoss += player2GameWins
-      match.player2.player.gameWins += player2GameWins
-      match.player2.player.gameLoss += player1GameWins
-
-     match.evaluateMatchWinner({player1GameWins:player1GameWins,player2GameWins:player2GameWins}) 
-
-      // if (player1GameWins > player2GameWins) { //All moved to match
-      //   match.player1.player.wins += 1
-      //   match.player2.player.loss += 1
-      // } else if (player1GameWins < player2GameWins) {
-      //   match.player2.player.wins += 1
-      //   match.player1.player.loss += 1
-      // } else {
-      //   match.player1.player.draws += 1
-      //   match.player2.player.draws += 1
-      // }
+      match.evaluateMatchWinner({ player1GameWins: player1GameWins, player2GameWins: player2GameWins })
     })
     tournament.createRound()
     const nextRoundIndex = tournament.rounds.length - 1
