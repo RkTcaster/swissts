@@ -14,8 +14,9 @@ const RoundInput = ({ round, onSelectChange }: Props) => {
  
   useEffect(() => {
     setTimeout(() => {
-      setMatches(tournament.rounds[round].matches)    
+      setMatches(tournament.rounds[round].matches)
     })
+
   
 })
   return (
