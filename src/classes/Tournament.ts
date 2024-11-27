@@ -103,11 +103,37 @@ export class Tournament {
       players: this.players,
     })
     if (this.rounds.length === 0) {
-      this.getFirstRound()
+      this.getFirstRound()      
+      this.rounds[this.rounds.length-1].matches.map((match) => {
+        this.unplayedMatches.map((unplayedMatch) => {
+          if (match.player1.player.name === unplayedMatch.player1.player.name && match.player2.player.name === unplayedMatch.player2.player.name) {
+            unplayedMatch.setPlayed()
+          }
+        })
+      })
+      console.log(this.unplayedMatches)
     } else if (roundsForSwiss === undefined || roundsForSwiss <= this.rounds.length) {
+      console.log("Entro roundsForSwiss === undefined || roundsForSwiss <= this.rounds.length ")
       this.getRoundAfterSwiss()
+      this.rounds[this.rounds.length-1].matches.map((match) => {
+        this.unplayedMatches.map((unplayedMatch) => {
+          if (match.player1.player.name === unplayedMatch.player1.player.name && match.player2.player.name === unplayedMatch.player2.player.name) {
+            unplayedMatch.setPlayed()
+          }
+        })
+      })
+      console.log(this.unplayedMatches)
     } else if (roundsForSwiss > this.rounds.length) {
+      console.log("Entro roundsForSwiss > this.rounds.length")
       this.getNextRoundSameWins()
+      this.rounds[this.rounds.length-1].matches.map((match) => {
+        this.unplayedMatches.map((unplayedMatch) => {
+          if (match.player1.player.name === unplayedMatch.player1.player.name && match.player2.player.name === unplayedMatch.player2.player.name) {
+            unplayedMatch.setPlayed()
+          }
+        })
+      })
+      console.log(this.unplayedMatches)
     }
   }
 }
