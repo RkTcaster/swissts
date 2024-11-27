@@ -73,6 +73,25 @@ const setUnplayedMatchesByPlayedMatches = ({
   return filteredMatches
 }
 
+const setPlayedMatchesByRound = ({
+  unplayedMatches,
+  matches,
+}: {
+  unplayedMatches: Match[]
+  matches: Match[]
+}): void => {
+  matches.map((match) => {
+    unplayedMatches.map((unplayedMatch) => {
+      if (
+        match.player1.player.name === unplayedMatch.player1.player.name &&
+        match.player2.player.name === unplayedMatch.player2.player.name
+      ) {
+        unplayedMatch.setPlayed()
+      }
+    })
+  })
+}
+
 export const gameUtils = {
   getRandomInt,
   get5DigitSeed,
@@ -83,4 +102,5 @@ export const gameUtils = {
   createNumberArray,
   reduceUnplayedMatches,
   setUnplayedMatchesByPlayedMatches,
+  setPlayedMatchesByRound,
 }

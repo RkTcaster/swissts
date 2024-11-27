@@ -17,7 +17,9 @@ export class Tournament {
   }
 
   private createPlayers({ playersNames }: { playersNames: string[] }) {
-    this.players = playersNames.map((name) => new Player({ name, wins: 0, loss: 0, draws:0, gameWins: 0, gameLoss: 0 }))
+    this.players = playersNames.map(
+      (name) => new Player({ name, wins: 0, loss: 0, draws: 0, gameWins: 0, gameLoss: 0 })
+    )
   }
 
   private setAllMatchMatrix() {
@@ -97,43 +99,29 @@ export class Tournament {
     }
   }
 
+  private checkDraws() {
+    return this.players.some((player) => player.draws !== 0)
+  }
+
   public createRound() {
     this.filterByPlayedMatch()
+    const roundLength = this.rounds.length
     const roundsForSwiss = gameUtils.calculateRoundsForSwiss({
       players: this.players,
     })
-    if (this.rounds.length === 0) {
-      this.getFirstRound()      
-      this.rounds[this.rounds.length-1].matches.map((match) => {
-        this.unplayedMatches.map((unplayedMatch) => {
-          if (match.player1.player.name === unplayedMatch.player1.player.name && match.player2.player.name === unplayedMatch.player2.player.name) {
-            unplayedMatch.setPlayed()
-          }
-        })
-      })
-      console.log(this.unplayedMatches)
-    } else if (roundsForSwiss === undefined || roundsForSwiss <= this.rounds.length) {
-      console.log("Entro roundsForSwiss === undefined || roundsForSwiss <= this.rounds.length ")
+    const draws = this.checkDraws()
+    console.log(draws)
+    if (roundLength === 0) {
+      this.getFirstRound()
+    } else if (roundsForSwiss === undefined || roundsForSwiss <= roundLength || draws) {
       this.getRoundAfterSwiss()
-      this.rounds[this.rounds.length-1].matches.map((match) => {
-        this.unplayedMatches.map((unplayedMatch) => {
-          if (match.player1.player.name === unplayedMatch.player1.player.name && match.player2.player.name === unplayedMatch.player2.player.name) {
-            unplayedMatch.setPlayed()
-          }
-        })
-      })
-      console.log(this.unplayedMatches)
-    } else if (roundsForSwiss > this.rounds.length) {
-      console.log("Entro roundsForSwiss > this.rounds.length")
+    } else if (roundsForSwiss > roundLength || !draws) {
       this.getNextRoundSameWins()
-      this.rounds[this.rounds.length-1].matches.map((match) => {
-        this.unplayedMatches.map((unplayedMatch) => {
-          if (match.player1.player.name === unplayedMatch.player1.player.name && match.player2.player.name === unplayedMatch.player2.player.name) {
-            unplayedMatch.setPlayed()
-          }
-        })
-      })
-      console.log(this.unplayedMatches)
     }
+    gameUtils.setPlayedMatchesByRound({
+      matches: this.rounds[roundLength].matches,
+      unplayedMatches: this.unplayedMatches,
+    })
+    console.log(this.unplayedMatches)
   }
 }
