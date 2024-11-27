@@ -19,7 +19,6 @@ const PlayerRoundRow = ({ containerClassName, playerName, playerWins,playerLoss,
       <p className={css.playerName}>{playerName}</p>
       <p>{playerWins}-{playerLoss}-{playerDraws}</p>
       <p>{playerSetWins}-{playerSetLoss}</p>
-      <p>{playerSetLoss}</p>
       <p>{tieBraker}</p>
     </div>
   )
