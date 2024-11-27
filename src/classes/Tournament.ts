@@ -106,11 +106,11 @@ export class Tournament {
   public createRound() {
     this.filterByPlayedMatch()
     const roundLength = this.rounds.length
+    const draws = this.checkDraws()
     const roundsForSwiss = gameUtils.calculateRoundsForSwiss({
       players: this.players,
     })
-    const draws = this.checkDraws()
-    console.log(draws)
+
     if (roundLength === 0) {
       this.getFirstRound()
     } else if (roundsForSwiss === undefined || roundsForSwiss <= roundLength || draws) {
@@ -122,6 +122,5 @@ export class Tournament {
       matches: this.rounds[roundLength].matches,
       unplayedMatches: this.unplayedMatches,
     })
-    console.log(this.unplayedMatches)
   }
 }
