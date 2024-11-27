@@ -15,8 +15,8 @@ const PlayerScoreDiv = ({ containerClassName }: Props) => {
   const { players } = tournament
 
   const sortedPlayers = [...players.sort((a, b) => {
-    const aScore = a.wins * WINS_WEIGHT + a.gameWins * GAMES_WEIGHT - a.gameLoss * GAMES_WEIGHT
-    const bScore = b.wins * WINS_WEIGHT + b.gameWins * GAMES_WEIGHT - b.gameLoss * GAMES_WEIGHT
+    const aScore = a.wins * WINS_WEIGHT + a.buchholz
+    const bScore = b.wins * WINS_WEIGHT + b.buchholz
     return bScore - aScore
   })]
 
@@ -27,14 +27,15 @@ const PlayerScoreDiv = ({ containerClassName }: Props) => {
         <PlayerRoundRow
           containerClassName={classNames(css.playerRowContainer, css.playerRowHeader)}
           playerName={'Player Name'}
-          playerWins={'Wins'}
-          playerLoss={"Loss"}
-          playerDraws={"Draws"}
-          playerSetWins={'Game Wins'}
-          playerSetLoss={'Game Losses'}
+          playerWins={'W'}
+          playerLoss={"L"}
+          playerDraws={"D"}
+          playerSetWins={'GW'}
+          playerSetLoss={'GL'}
+          tieBraker={"TieBraker"}
         />
         {sortedPlayers.map((player, playerIndex) => {
-          const { name, wins, loss,draws, gameWins, gameLoss } = player
+          const { name, wins, loss,draws, gameWins, gameLoss, buchholz } = player
           return (
             <PlayerRoundRow
               containerClassName={css.playerRowContainer}
@@ -45,6 +46,7 @@ const PlayerScoreDiv = ({ containerClassName }: Props) => {
               playerDraws={draws}
               playerSetWins={gameWins}
               playerSetLoss={gameLoss}
+              tieBraker={buchholz}
             />
           )
         })}

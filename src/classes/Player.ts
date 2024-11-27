@@ -6,6 +6,8 @@ export class Player {
   public draws: number = 0
   public gameWins: number = 0
   public gameLoss: number = 0
+  public rivals: Player[] = []
+  public buchholz: number = 0
   constructor({
     name,
     wins,
@@ -13,6 +15,8 @@ export class Player {
     draws,
     gameWins,
     gameLoss,
+    rivals,
+    buchholz,
   }: {
     name: string
     wins: number
@@ -20,6 +24,8 @@ export class Player {
     draws: number
     gameWins: number
     gameLoss: number
+    rivals: Player[]
+    buchholz: number
   }) {
     this.name = name
     this.wins = wins
@@ -27,6 +33,8 @@ export class Player {
     this.draws = draws
     this.gameWins = gameWins
     this.gameLoss = gameLoss
+    this.rivals = rivals
+    this.buchholz = buchholz
   }
   public addWin() {
     this.wins += 1
@@ -43,4 +51,15 @@ export class Player {
   public addGameLoss() {
     this.gameLoss += 1
   }
+  public addRival(rival:Player) {
+    this.rivals.push(rival)
+  }
+
+
+  public setBuchholz() {
+    this.rivals.map((player) => {
+      this.buchholz += player.wins * 10 - player.gameLoss + player.draws
+    })
+  }
+
 }

@@ -10,17 +10,17 @@ type Props = {
   playerDraws: string | number
   playerSetWins: string | number
   playerSetLoss: string | number
+  tieBraker: string | number  
 }
 
-const PlayerRoundRow = ({ containerClassName, playerName, playerWins,playerLoss,playerDraws, playerSetWins, playerSetLoss }: Props) => {
+const PlayerRoundRow = ({ containerClassName, playerName, playerWins,playerLoss,playerDraws, playerSetWins, playerSetLoss, tieBraker }: Props) => {
   return (
     <div className={classNames(css.container, containerClassName)}>
       <p className={css.playerName}>{playerName}</p>
-      <p>{playerWins}</p>
-      <p>{playerLoss}</p>
-      <p>{playerDraws}</p>
-      <p>{playerSetWins}</p>
+      <p>{playerWins}-{playerLoss}-{playerDraws}</p>
+      <p>{playerSetWins}-{playerSetLoss}</p>
       <p>{playerSetLoss}</p>
+      <p>{tieBraker}</p>
     </div>
   )
 }

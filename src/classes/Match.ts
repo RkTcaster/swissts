@@ -20,13 +20,17 @@ export class Match {
     this.unfairness = Math.abs(this.player1.player.wins*100 + this.player1.player.gameWins - this.player2.player.wins*100 -  this.player2.player.gameWins)
   }
 
-  public evaluateMatchWinner({player1GameWins,player2GameWins}:{player1GameWins:number,player2GameWins:number}) {
+  private updateMatchResult({player1GameWins,player2GameWins}:{player1GameWins:number,player2GameWins:number}) {
     this.player1.player.gameWins += player1GameWins
     this.player1.player.gameLoss += player2GameWins
     this.player2.player.gameWins += player2GameWins
     this.player2.player.gameLoss += player1GameWins
+    this.player1.player.addRival(this.player2.player)
+    this.player2.player.addRival(this.player1.player)
+  }
 
-    if (player1GameWins > player2GameWins) { //Transform to a Match method 
+  private evaluateMatchResult({player1GameWins,player2GameWins}:{player1GameWins:number,player2GameWins:number}) { //Raro, esto se puede hacer mejor 
+    if (player1GameWins > player2GameWins) {
       this.player1.player.wins += 1
       this.player2.player.loss += 1
     } else if (player1GameWins < player2GameWins) {
@@ -36,5 +40,17 @@ export class Match {
       this.player1.player.draws += 1
       this.player2.player.draws += 1
     }
+  }
+
+  private updateBuchholz() {
+    this.player1.player.setBuchholz()
+    this.player2.player.setBuchholz()
+  }
+
+  public setMatchResult({player1GameWins,player2GameWins}:{player1GameWins:number,player2GameWins:number}) {
+    
+    this.updateMatchResult({player1GameWins:player1GameWins,player2GameWins:player2GameWins})    
+    this.evaluateMatchResult({player1GameWins:player1GameWins,player2GameWins:player2GameWins})
+    this.updateBuchholz()
   }
 }
