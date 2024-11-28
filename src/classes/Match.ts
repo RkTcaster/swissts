@@ -1,3 +1,4 @@
+import { Config } from './Config'
 import { Player } from './Player'
 
 export class Match {
@@ -64,14 +65,14 @@ export class Match {
     }
   }
 
-  private updateBuchholz() {
-    this.player1.player.setBuchholz()
-    this.player2.player.setBuchholz()
+  private updateBuchholz(config:Config) {
+    this.player1.player.setBuchholz({config})
+    this.player2.player.setBuchholz({config})
   }
 
-  public setMatchResult({ player1GameWins, player2GameWins }: { player1GameWins: number; player2GameWins: number }) {
+  public setMatchResult({ player1GameWins, player2GameWins, config }: { player1GameWins: number; player2GameWins: number, config:Config }) {
     this.updateMatchResult({ player1GameWins: player1GameWins, player2GameWins: player2GameWins })
     this.evaluateMatchResult({ player1GameWins: player1GameWins, player2GameWins: player2GameWins })
-    this.updateBuchholz()
+    this.updateBuchholz(config)
   }
 }

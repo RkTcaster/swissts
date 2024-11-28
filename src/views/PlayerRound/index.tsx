@@ -8,15 +8,14 @@ type Props = {
 }
 
 const WINS_WEIGHT = 100
-const GAMES_WEIGHT = 10
 
 const PlayerScoreDiv = ({ containerClassName }: Props) => {
   const { tournament } = useTournament()
   const { players } = tournament
 
   const sortedPlayers = [...players.sort((a, b) => {
-    const aScore = a.wins * WINS_WEIGHT + a.buchholz
-    const bScore = b.wins * WINS_WEIGHT + b.buchholz
+    const aScore = a.wins * WINS_WEIGHT + a.buchholz -a.gameLoss
+    const bScore = b.wins * WINS_WEIGHT + b.buchholz -b.gameLoss
     return bScore - aScore
   })]
 

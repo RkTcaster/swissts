@@ -28,13 +28,16 @@ const Second = () => {
     }))
   }
 
+  const tournamentConfig = tournament.config[0]
+
   const logValue = () => {
     Object.entries(currentRoundMatches).forEach(([tournamentPlayerKey, match]) => {
       var player1GameWins = Number(selectedValues[match.player1.player.name]) || 0
       var player2GameWins = Number(selectedValues[match.player2.player.name]) || 0
 
-      match.setMatchResult({ player1GameWins: player1GameWins, player2GameWins: player2GameWins })
+      match.setMatchResult({ player1GameWins: player1GameWins, player2GameWins: player2GameWins, config: tournamentConfig })
     })
+    
     tournament.createRound()
     const nextRoundIndex = tournament.rounds.length - 1 //next 7 lines are add for reset the selectValues to avoid using a previous values in the next round
     const nextRoundMatches = tournament.rounds[nextRoundIndex].matches

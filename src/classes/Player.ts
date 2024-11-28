@@ -1,3 +1,5 @@
+import { Config } from './Config'
+
 export class Player {
   //Para ir puliendo el fairness se le puede agregar ademas de wins, loss y sets win loss
   public name: string
@@ -51,15 +53,17 @@ export class Player {
   public addGameLoss() {
     this.gameLoss += 1
   }
-  public addRival(rival:Player) {
+  public addRival(rival: Player) {
     this.rivals.push(rival)
   }
 
-
-  public setBuchholz() {
+  public setBuchholz({ config }: { config: Config }) {
+    this.buchholz = 0
     this.rivals.map((player) => {
-      this.buchholz += player.wins * 10 - player.gameLoss + player.draws
+      this.buchholz +=
+        player.wins * config.pointsPerMatchWin +
+        player.draws * config.pointsPerMatchTie +
+        player.gameWins * config.pointsPerGameWin //Falta Byes
     })
   }
-
 }
