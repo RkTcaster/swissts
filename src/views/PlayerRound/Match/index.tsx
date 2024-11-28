@@ -1,15 +1,23 @@
 import Select from '@/src/components/Select'
 import css from './style.module.css'
 import { Match } from '@/src/classes/Match'
+import { useTournament } from '@/src/context/tournament'
 
 type Props = {
   matches: Match[]
   onSelectChange: (key: string, value: string) => void
 }
 
-const selectOption = [0,1,2] //Aca viene la alimentacion del tournament config 
 
 const MatchInput = ({ matches, onSelectChange }: Props) => {
+  const { tournament } = useTournament() 
+  const selectOptionNumber = tournament.config[0].bo
+  const createOddArray = (n: number): number[] => {
+  return Array.from({ length: (n-Math.floor(n/2)+1) }, (_, i) => i ); //pasar a utils ? 
+};
+
+const selectOption = createOddArray(selectOptionNumber)
+
   return (
     <>
       {matches.map((match, matchIndex) => {

@@ -34,7 +34,7 @@ const TournamentConfig = ({ config, onConfigChange }: Props) => {
 
     onConfigChange(key, e.target.value)
   }
-
+  // Esto tambien creo que se puede cambiar para que sea un map ?
   return (
     <>
       <div>

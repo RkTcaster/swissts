@@ -25,7 +25,7 @@ const Home = () => {
     })
   );
 
-  const handleConfigChange = (key: string, value: string) => {
+  const handleConfigChange = (key: string, value: string) => { //pasar a utils o algo asi el switch ? 
     setConfig((prevConfig) => {
       const updatedConfig = new Config({
         ...prevConfig, 
