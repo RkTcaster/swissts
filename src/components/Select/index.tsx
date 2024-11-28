@@ -4,12 +4,12 @@ import css from './select.module.css'
 
 type Props = {
   index: number
+  selectOption: number[] | string[] 
   onChange: (value: string, index: number) => void
 } & Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange'>
 
-const Select = ({ index, onChange, className, ...props }: Props) => {
-  const selectOption = [0, 1, 2]
-
+const Select = ({ index, selectOption, onChange, className, ...props }: Props) => {
+  
   return (
     <select
       onChange={(e: ChangeEvent<HTMLSelectElement>) => onChange(e.target.value, index)}

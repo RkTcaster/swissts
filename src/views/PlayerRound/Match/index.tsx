@@ -7,7 +7,7 @@ type Props = {
   onSelectChange: (key: string, value: string) => void
 }
 
-
+const selectOption = [0,1,2] //Aca viene la alimentacion del tournament config 
 
 const MatchInput = ({ matches, onSelectChange }: Props) => {
   return (
@@ -21,6 +21,7 @@ const MatchInput = ({ matches, onSelectChange }: Props) => {
                 index={matchIndex}
                 key={`${matchIndex}-player1`}
                 onChange={(value) => onSelectChange(`${match.player1.player.name}`, value)}
+                selectOption={selectOption}
               />
             </div>
             <div className={css.playerGroup}>
@@ -29,6 +30,7 @@ const MatchInput = ({ matches, onSelectChange }: Props) => {
                 index={matchIndex}
                 key={`${matchIndex}-player2`}
                 onChange={(value) => onSelectChange(`${match.player2.player.name}`, value)}
+                selectOption={selectOption}
               />
             </div>
           </div>

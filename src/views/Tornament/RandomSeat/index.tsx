@@ -1,8 +1,6 @@
-import { useTournament } from '@/src/context/tournament'
 import React, { useState } from 'react'
-import { randomSeatsUtils } from './utils'
 
-type Props = { players: string[], randomPlayers: string[] }
+type Props = { players: string[]; randomPlayers: string[] }
 
 const RandomSeatStep = ({ players, randomPlayers }: Props) => {
   const [isChecked, setIsChecked] = useState(false)

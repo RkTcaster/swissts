@@ -1,3 +1,4 @@
+import { Config } from './Config'
 import { Match } from './Match'
 import { Player } from './Player'
 import { Round } from './Round'
@@ -9,11 +10,18 @@ export class Tournament {
   private returnRound: Match[] = []
   private seed: number | undefined
   public rounds: Round[] = []
+  public config: Config[] = [] //Este array esta mal, pero me tira error si saco esto y cambio setConfig
 
-  public startTournament({ playersNames, date }: { playersNames: string[]; date: string }) {
+  public startTournament({ playersNames, date, config }: { playersNames: string[]; date: string ; config: Config}) {
     this.createPlayers({ playersNames })
     this.setAllMatchMatrix()
+    this.setConfig({config})
     this.seed = this.setSeed({ date })
+    
+  }
+
+  private setConfig({config}:{config:Config}) {
+    this.config = [config]
   }
 
   private createPlayers({ playersNames }: { playersNames: string[] }) {
