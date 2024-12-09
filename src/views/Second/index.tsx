@@ -74,19 +74,23 @@ const Second = () => {
   }
 
   const finishSwiss = () => {
-    
-    Object.entries(currentRoundMatches).forEach(([tournamentPlayerKey, match]) => {
-      var player1GameWins = Number(selectedValues[match.player1.player.name]) || 0
-      var player2GameWins = Number(selectedValues[match.player2.player.name]) || 0
+    if (Object.keys(roundConfirmed).length < tournament.rounds.length) {
+      router.push('./results')
+    } else {
+      Object.entries(currentRoundMatches).forEach(([tournamentPlayerKey, match]) => {
+        var player1GameWins = Number(selectedValues[match.player1.player.name]) || 0
+        var player2GameWins = Number(selectedValues[match.player2.player.name]) || 0
 
-      match.setMatchResult({
-        player1GameWins: player1GameWins,
-        player2GameWins: player2GameWins,
-        config: tournamentConfig,
+        match.setMatchResult({
+          player1GameWins: player1GameWins,
+          player2GameWins: player2GameWins,
+          config: tournamentConfig,
+        })
       })
-    })
-    setRefreshScore((prev)=>!prev)
 
+      setRefreshScore((prev) => !prev)
+      router.push('./results')
+    }
   }
 
   return (
@@ -101,14 +105,14 @@ const Second = () => {
           />
         ))}
       </div>
-      <PlayerScoreDiv containerClassName={css.scoreTableContainer} refreshScore={refreshScore}/>
+      <PlayerScoreDiv containerClassName={css.scoreTableContainer} refreshScore={refreshScore} />
       <Button
         label={'Get Next round'}
         onClick={() => logValue()}
         className='button-primary'
         disabled={isButtonDisabled()}
       />
-      <Button label={'Finish Swiss phase'} onClick={() => (finishSwiss(), router.push('./results'))} className='button-primary' />
+      <Button label={'Finish Swiss phase'} onClick={() => finishSwiss()} className='button-primary' />
     </div>
   )
 }
