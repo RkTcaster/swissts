@@ -5,6 +5,7 @@ import PlayerRoundRow from './PlayerRoundRow'
 
 type Props = {
   containerClassName?: string
+  refreshScore?: boolean
 }
 
 const WINS_WEIGHT = 100

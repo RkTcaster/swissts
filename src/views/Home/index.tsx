@@ -62,7 +62,6 @@ const Home = () => {
         <div>
           <p>Tournament Configuration</p>
           <TournamentConfig config={config} onConfigChange={handleConfigChange}/>
-          <Button label="Check values" onClick={() => console.log(config)} />
         </div>
       </div>
     </>

@@ -6,9 +6,10 @@ import { Match } from '@/src/classes/Match'
 type Props = {
   round: number
   onSelectChange: (key: string, value: string) => void
+  onConfirmChange: (isConfirmed: boolean) => void
 }
 
-const RoundInput = ({ round, onSelectChange }: Props) => {
+const RoundInput = ({ round, onSelectChange, onConfirmChange }: Props) => {
   const { tournament } = useTournament()   
   const [matches, setMatches] = useState<Match[]>([])
  
@@ -19,14 +20,15 @@ const RoundInput = ({ round, onSelectChange }: Props) => {
 
 
   
-})
+}, [round, tournament.rounds]) //ojo esto que no le entiendo
+
   return (
     <>
       <div>
         <p>Ronda {`${round+1}`}</p>
       </div>
       <div>
-        <MatchInput key={`round-${round}`} matches={matches} onSelectChange={onSelectChange} />
+        <MatchInput key={`round-${round}`} matches={matches} onSelectChange={onSelectChange} onConfirmChange={onConfirmChange} />
       </div>
     </>
   )

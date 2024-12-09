@@ -131,4 +131,19 @@ export class Tournament {
       unplayedMatches: this.unplayedMatches,
     })
   }
+
+  public restartTournament() {    
+    this.rounds = []
+    this.unplayedMatches = []
+    this.players.map((player) => {
+      player.buchholz = 0
+      player.draws = 0
+      player.gameLoss = 0
+      player.gameWins = 0
+      player.loss = 0
+      player.rivals = []
+      player.wins = 0
+    })
+    this.setAllMatchMatrix()
+  }
 }
